@@ -13,11 +13,13 @@ public class ButtonLogic : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-       
-        float distance = (transform.position - hololenseData.GetComponent<hololenseSensorData>().handPosition).magnitude;
-        if (distance > 2.0f)
+        
+        //float distance = (transform.position - hololenseData.GetComponent<hololenseSensorData>().handPosition).magnitude;
+        float distance = (transform.position - hololenseData.GetComponent<hololenseSensorData>().pinchHitLocation).magnitude;
+
+        if (distance > 0.5f)
             GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0.5f));
-        else if (distance > 1.0f)
+        else if (distance > 0.1f)
             GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0.5f, 0));
         else
             GetComponent<Renderer>().material.SetColor("_Color", new Color(0.5f, 0, 0));

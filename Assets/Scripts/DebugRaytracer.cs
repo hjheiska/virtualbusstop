@@ -12,6 +12,8 @@ public class DebugRaytracer : MonoBehaviour {
     private bool weatherObjectInstantiated;
     private bool soundObjectInstantiated;
 
+    private Vector3 mapObjectLocation;
+
     void Start()
     {
         hololenseData = GameObject.Find("hololenseData");
@@ -31,25 +33,26 @@ public class DebugRaytracer : MonoBehaviour {
              999.0f))
             {
                 mapObjectInstantiated = true;
-                Instantiate(mapObject, hitInfo.point, Quaternion.identity);
+                mapObjectLocation = hitInfo.point - (Vector3.forward * 0.05f);
+                Instantiate(mapObject, hitInfo.point - (Vector3.forward * 0.05f), Quaternion.identity);
             }
         }
-        if (!weatherObjectInstantiated)
+        if (mapObjectInstantiated && !weatherObjectInstantiated)
         { 
             if (Physics.Raycast(
-                    mainCamera.transform.position,
+                    mapObjectLocation + Vector3.back * 0.1f,
                     Vector3.up,
                     out hitInfo,
                     999.0f))
             {
                 weatherObjectInstantiated = true;
-                Instantiate(weatherObject, hitInfo.point, Quaternion.identity);
+                Instantiate(weatherObject, hitInfo.point + (Vector3.down * 0.1f) + (Vector3.back * 0.5f), Quaternion.identity);
             }
         }
         if(!soundObjectInstantiated)
         {
             soundObjectInstantiated = true;
-            Instantiate(soundObject, Vector3.up + Vector3.forward, Quaternion.identity); 
+            Instantiate(soundObject, (Vector3.up + Vector3.forward), Quaternion.identity); 
         }       
     }
 }

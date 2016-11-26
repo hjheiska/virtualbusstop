@@ -9,6 +9,7 @@ public class hololenseSensorData : MonoBehaviour {
     public Vector3 handPosition;
     public Vector3 pinchHitLocation;
     public GameObject mainCamera;
+    public GameObject gazeDebugObject;
 
 	// Use this for initialization
 	void Start () {
@@ -56,8 +57,17 @@ public class hololenseSensorData : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	
-	}
+        RaycastHit hitInfo;
+        if (Physics.Raycast(
+                mainCamera.transform.position,
+                mainCamera.transform.forward,
+                out hitInfo,
+                999.0f))
+        {
+            gazeDebugObject.transform.position = hitInfo.point;
+        }
+    }
+
     void destroy()
     {
         InteractionManager.SourcePressed -= InteractionManager_SourcePressed;

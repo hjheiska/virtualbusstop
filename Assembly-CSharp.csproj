@@ -46,8 +46,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ButtonLogic.cs" />
+     <Compile Include="Assets\Scripts\CloudObject.cs" />
      <Compile Include="Assets\Scripts\DebugRaytracer.cs" />
+     <Compile Include="Assets\Scripts\GoogleMap.cs" />
      <Compile Include="Assets\Scripts\draggableObject.cs" />
+     <Compile Include="Assets\Scripts\drawerObject.cs" />
+     <Compile Include="Assets\Scripts\highligtableObject.cs" />
      <Compile Include="Assets\Scripts\hololenseSensorData.cs" />
      <None Include="Assets\Scene assets\GradientShader.shader" />
  <Reference Include="UnityEngine.UI">
