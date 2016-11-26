@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Scenes/distance_check_working.unity
+  isLoaded: 1
+  isActive: 1
