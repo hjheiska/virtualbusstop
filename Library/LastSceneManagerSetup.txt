@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/VirtualBusStop_v0-5.unity
-  isLoaded: 1
-  isActive: 1
