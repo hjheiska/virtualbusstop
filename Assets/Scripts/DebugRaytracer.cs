@@ -11,6 +11,8 @@ public class DebugRaytracer : MonoBehaviour {
     private bool mapObjectInstantiated;
     private bool weatherObjectInstantiated;
     private bool soundObjectInstantiated;
+    public GameObject adObjects;
+    private bool adObjectsInstiatiated;
 
     private Vector3 mapObjectLocation;
 
@@ -33,26 +35,42 @@ public class DebugRaytracer : MonoBehaviour {
              999.0f))
             {
                 mapObjectInstantiated = true;
-                mapObjectLocation = hitInfo.point - (Vector3.forward * 0.05f);
-                Instantiate(mapObject, hitInfo.point - (Vector3.forward * 0.05f), Quaternion.identity);
+                mapObjectLocation = hitInfo.point + (Vector3.back * 0.05f);
+                Instantiate(mapObject, hitInfo.point + (Vector3.back * 0.05f), Quaternion.identity);
             }
         }
         if (mapObjectInstantiated && !weatherObjectInstantiated)
         { 
             if (Physics.Raycast(
-                    mapObjectLocation + Vector3.back * 0.1f,
+                    mapObjectLocation + Vector3.back * 0.5f,
                     Vector3.up,
                     out hitInfo,
                     999.0f))
             {
                 weatherObjectInstantiated = true;
-                Instantiate(weatherObject, hitInfo.point + (Vector3.down * 0.1f) + (Vector3.back * 0.5f), Quaternion.identity);
+                Instantiate(weatherObject, hitInfo.point + (Vector3.down * 0.1f), Quaternion.identity);
             }
         }
+        if(mapObjectInstantiated && !adObjectsInstiatiated)
+        {
+           if (Physics.Raycast(
+                    mapObjectLocation + Vector3.back * 0.15f,
+                    Vector3.left,
+                    out hitInfo,
+                    999.0f))
+            {
+                adObjectsInstiatiated = true;
+                Instantiate(adObjects, hitInfo.point, Quaternion.identity);
+            }
+
+        }
+
+        /*
         if(!soundObjectInstantiated)
         {
             soundObjectInstantiated = true;
-            Instantiate(soundObject, (Vector3.up + Vector3.forward), Quaternion.identity); 
-        }       
+            Instantiate(soundObject, Vector3.up + Vector3.back * 0.5f, Quaternion.identity); 
+        } 
+        */      
     }
 }

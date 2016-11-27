@@ -7,6 +7,7 @@ public class CloudObject : MonoBehaviour {
     private GameObject hololenseData;
     private Vector3 originalPosition;
     private Vector3 targetPosition;
+    public Camera mainCamera;
 
 
 
@@ -14,6 +15,7 @@ public class CloudObject : MonoBehaviour {
     void Start()
     {
         hololenseData = GameObject.Find("hololenseData");
+        mainCamera = GameObject.Find("Camera").GetComponent<Camera>();
         originalPosition = transform.position;
     }
 
@@ -31,7 +33,7 @@ public class CloudObject : MonoBehaviour {
             GetComponent<AudioSource>().Stop();
 
         float distance = (holoData.pinchHitLocation - transform.position).magnitude;
-        GetComponent<AudioSource>().volume = (Mathf.Min(1, distance / 3));
+        //GetComponent<AudioSource>().volume = (Mathf.Min(1, distance / 3));
 
         if (holoData.handPinched)
         {
@@ -50,7 +52,7 @@ public class CloudObject : MonoBehaviour {
         if (cloudActive)
         {
             Vector3 handPosition = holoData.handPosition;
-            targetPosition = handPosition;
+            targetPosition = handPosition + (mainCamera.transform.forward * 0.3f);
         }
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);

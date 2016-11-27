@@ -5,9 +5,11 @@ using System.Collections;
 public class ButtonLogic : MonoBehaviour {
 
     private GameObject hololenseData;
-
-	// Use this for initialization
-	void Start () {
+    public GameObject timeObject;
+    private bool pinActive;
+    
+    // Use this for initialization
+    void Start () {
         hololenseData = GameObject.Find("hololenseData");
     }
 
@@ -17,12 +19,17 @@ public class ButtonLogic : MonoBehaviour {
         //float distance = (transform.position - hololenseData.GetComponent<hololenseSensorData>().handPosition).magnitude;
         float distance = (transform.position - hololenseData.GetComponent<hololenseSensorData>().pinchHitLocation).magnitude;
 
-        if (distance > 0.5f)
-            GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0.5f));
-        else if (distance > 0.1f)
-            GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0.5f, 0));
-        else
-            GetComponent<Renderer>().material.SetColor("_Color", new Color(0.5f, 0, 0));
+        if (distance < 0.25f)
+        {
+            pinActive = true;
+        }
+        else if(hololenseData.GetComponent<hololenseSensorData>().handPinched)
+        {
+            pinActive = false;
+        }
+
+        timeObject.SetActive(pinActive);
+
     }
     
 }
